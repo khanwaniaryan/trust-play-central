@@ -1,42 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=Merriweather:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Casino Guide Design System - Light Theme, Trust-focused */
 
 @layer base {
   :root {
+    /* Base Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --surface: 223 100% 99%;
+    --foreground: 215 19% 24%;
+    
+    /* Brand Colors */
+    --primary: 217 100% 53%;        /* #0B63FF - Trustworthy Blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 217 100% 48%;
+    
+    --secondary: 154 65% 33%;       /* #0B9B6E - Trust Green */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 154 65% 28%;
+    
+    /* Text Colors */
+    --text-primary: 215 19% 24%;    /* #394047 */
+    --text-secondary: 218 11% 47%;   /* #6B7280 */
+    --text-muted: 218 11% 65%;
+    
+    /* UI Colors */
+    --border: 215 23% 42% / 0.06;   /* Subtle borders */
+    --input: 220 13% 91%;
+    --ring: 217 100% 53%;
+    
+    /* Status Colors */
+    --success: 154 65% 33%;
+    --warning: 32 95% 44%;          /* #F59E0B */
+    --error: 0 84% 47%;             /* #D92D20 */
+    
+    /* Card & Surfaces */
+    --card: 223 100% 99%;           /* #FBFCFF */
+    --card-foreground: 215 19% 24%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --popover-foreground: 215 19% 24%;
+    
+    --muted: 220 13% 91%;
+    --muted-foreground: 218 11% 47%;
+    
+    --accent: 217 100% 53% / 0.1;
+    --accent-foreground: 217 100% 53%;
+    
+    --destructive: 0 84% 47%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Spacing & Layout */
+    --radius: 0.75rem;
+    --spacing-unit: 24px;
+    
+    /* Shadows */
+    --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-moderate: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-prominent: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--background)), hsl(var(--surface)));
+    --gradient-trust: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-hover)));
+    
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +127,87 @@ All colors MUST be HSL.
   }
 }
 
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-semibold;
+  }
+
+  h1 {
+    @apply text-4xl leading-tight;
+  }
+
+  h2 {
+    @apply text-2xl leading-tight;
+  }
+
+  h3 {
+    @apply text-xl leading-snug;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero-primary {
+    @apply bg-gradient-to-r from-primary to-primary-hover text-primary-foreground px-8 py-4 rounded-xl font-medium text-lg shadow-moderate hover:shadow-prominent transition-all duration-smooth transform hover:scale-105 focus:scale-105;
+  }
+
+  .btn-hero-secondary {
+    @apply border-2 border-primary text-primary bg-transparent px-8 py-4 rounded-xl font-medium text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-smooth;
+  }
+
+  /* Trust Badge */
+  .trust-badge {
+    @apply bg-gradient-to-r from-secondary to-secondary-hover text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium inline-flex items-center gap-2;
+  }
+
+  /* Casino Card */
+  .casino-card {
+    @apply bg-card border border-border rounded-xl p-6 shadow-subtle hover:shadow-moderate transition-all duration-smooth hover:scale-105 cursor-pointer;
+  }
+
+  /* Game Card */
+  .game-card {
+    @apply relative bg-card rounded-xl overflow-hidden shadow-subtle hover:shadow-moderate transition-all duration-smooth hover:scale-105 cursor-pointer;
+  }
+
+  /* Utility Classes */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent;
+  }
+
+  .surface-gradient {
+    @apply bg-gradient-to-b from-background to-surface;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Section Spacing */
+  .section-spacing {
+    @apply py-16 lg:py-24;
+  }
+
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
   }
 }
